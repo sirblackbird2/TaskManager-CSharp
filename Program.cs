@@ -13,7 +13,8 @@ do
     Console.WriteLine("1. Add Task");
     Console.WriteLine("2. View Tasks");
     Console.WriteLine("3. Delete Task");
-    Console.WriteLine("4. Exit");
+    Console.WriteLine("4. Complete Task");
+    Console.WriteLine("5. Exit");
     Console.WriteLine($"\nEnter an option: ");
 
     readResult = Console.ReadLine();
@@ -73,6 +74,31 @@ do
             break;
 
         case "4":
+            validExit = false;
+            do
+            {
+                Console.WriteLine("Enter a task ID to complete: ");
+                readResult = Console.ReadLine();
+                if (readResult != null)
+                {
+
+                    if (int.TryParse(readResult, out id))
+                    {
+                        taskService.CompleteTask(id);
+                        validExit = true;
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid Id.");
+                    }
+                }
+            } while (validExit == false);
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            break;
+
+        case "5":
             break;
 
         default:
@@ -80,4 +106,4 @@ do
             Console.ReadKey();
             break;
     }
-} while (menuSelect != "4");
+} while (menuSelect != "5");

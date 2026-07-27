@@ -58,5 +58,28 @@ namespace TaskManager.Services
                 Console.WriteLine("Task not found");
             }
         }
+        public void CompleteTask(int id)
+        {
+            TaskItem? taskToComplete = null;
+            foreach (var task in tasks)
+            {
+                if (task.Id == id)
+                {
+                    taskToComplete = task;
+                    break;
+                }
+            }
+
+            if (taskToComplete != null)
+            {
+                taskToComplete.IsCompleted = true;
+                Console.WriteLine("Task marked as completed.");
+            }
+
+            else
+            {
+                Console.WriteLine("Task not found");
+            }
+        }
     }
 }
