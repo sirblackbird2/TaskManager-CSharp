@@ -12,3 +12,4 @@ D:\CODING\C#\PROJECTS\TaskManager\obj\Debug\net10.0\refint\TaskManager.dll
 D:\CODING\C#\PROJECTS\TaskManager\obj\Debug\net10.0\TaskManager.pdb
 D:\CODING\C#\PROJECTS\TaskManager\obj\Debug\net10.0\TaskManager.genruntimeconfig.cache
 D:\CODING\C#\PROJECTS\TaskManager\obj\Debug\net10.0\ref\TaskManager.dll
+D:\CODING\C#\PROJECTS\TaskManager\obj\Debug\net10.0\TaskManager.sourcelink.json

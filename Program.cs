@@ -3,13 +3,17 @@ TaskService taskService = new TaskService();
 
 string? readResult;
 string menuSelect = "";
+bool validExit = false;
+int id = 0;
+
 do
 {
     Console.Clear();
     Console.WriteLine("===== Task Manager =====");
     Console.WriteLine("1. Add Task");
     Console.WriteLine("2. View Tasks");
-    Console.WriteLine("3. Exit");
+    Console.WriteLine("3. Delete Task");
+    Console.WriteLine("4. Exit");
     Console.WriteLine($"\nEnter an option: ");
 
     readResult = Console.ReadLine();
@@ -43,6 +47,32 @@ do
             break;
 
         case "3":
+            validExit = false;
+
+            do
+            {
+                Console.WriteLine("Enter a task ID to delete: ");
+                readResult = Console.ReadLine();
+                if (readResult != null)
+                {
+
+                    if (int.TryParse(readResult, out id))
+                    {
+                        taskService.DeleteTask(id);
+                        validExit = true;
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid Id.");
+                    }
+                }
+            } while (validExit == false);
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            break;
+
+        case "4":
             break;
 
         default:
@@ -50,4 +80,4 @@ do
             Console.ReadKey();
             break;
     }
-} while (menuSelect != "3");
+} while (menuSelect != "4");
