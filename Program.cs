@@ -1,4 +1,5 @@
-﻿using TaskManager.Services;
+﻿using TaskManager.Models;
+using TaskManager.Services;
 TaskService taskService = new TaskService();
 
 string? readResult;
@@ -14,7 +15,8 @@ do
     Console.WriteLine("2. View Tasks");
     Console.WriteLine("3. Delete Task");
     Console.WriteLine("4. Complete Task");
-    Console.WriteLine("5. Exit");
+    Console.WriteLine("5. Edit Task");
+    Console.WriteLine("6. Exit");
     Console.WriteLine($"\nEnter an option: ");
 
     readResult = Console.ReadLine();
@@ -99,6 +101,58 @@ do
             break;
 
         case "5":
+            validExit = false;
+            do
+            {
+                Console.WriteLine("Enter a task ID to edit: ");
+                readResult = Console.ReadLine();
+                if (readResult != null)
+                {
+                    if (int.TryParse(readResult, out id))
+                    {
+                        TaskItem? task = taskService.FindTaskById(id);
+
+                        if (task != null)
+                        {
+                            Console.WriteLine($"Current task title: {task.Title}");
+                            Console.WriteLine($"Current task description: {task.Description}");
+
+                            Console.WriteLine($"\nEnter a new title: ");
+                            string? newTitle = Console.ReadLine();
+
+                            Console.WriteLine($"\nEnter a new description: ");
+                            string? newDescription = Console.ReadLine();
+
+                            if (newTitle != null && newDescription != null)
+                            {
+                                taskService.EditTask(id: id, newTitle: newTitle, newDescription: newDescription);
+                                validExit = true;
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("Please enter a valid title and description.");
+                            }
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("Task not found.");
+                        }
+
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid Id.");
+                    }
+                }
+            } while (validExit == false);
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            break;
+
+        case "6":
             break;
 
         default:
@@ -106,4 +160,4 @@ do
             Console.ReadKey();
             break;
     }
-} while (menuSelect != "5");
+} while (menuSelect != "6");

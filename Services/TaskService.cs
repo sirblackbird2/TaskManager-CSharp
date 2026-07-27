@@ -37,15 +37,7 @@ namespace TaskManager.Services
 
         public void DeleteTask(int id)
         {
-            TaskItem? taskToDelete = null;
-            foreach (var task in tasks)
-            {
-                if (task.Id == id)
-                {
-                    taskToDelete = task;
-                    break;
-                }
-            }
+            TaskItem? taskToDelete = FindTaskById(id);
 
             if (taskToDelete != null)
             {
@@ -60,15 +52,7 @@ namespace TaskManager.Services
         }
         public void CompleteTask(int id)
         {
-            TaskItem? taskToComplete = null;
-            foreach (var task in tasks)
-            {
-                if (task.Id == id)
-                {
-                    taskToComplete = task;
-                    break;
-                }
-            }
+            TaskItem? taskToComplete = FindTaskById(id);
 
             if (taskToComplete != null)
             {
@@ -80,6 +64,36 @@ namespace TaskManager.Services
             {
                 Console.WriteLine("Task not found");
             }
+        }
+
+        public void EditTask(int id, string newTitle, string newDescription)
+        {
+            TaskItem? taskToEdit = FindTaskById(id);
+
+            if (taskToEdit != null)
+            {
+                taskToEdit.Title = newTitle;
+                taskToEdit.Description = newDescription;
+
+                Console.WriteLine("Task edited successfully.");
+            }
+            
+            else
+            {
+                Console.WriteLine("Task not found.");
+            }
+        }
+
+        public TaskItem? FindTaskById(int id)
+        {
+            foreach (var task in tasks)
+            {
+                if (task.Id == id)
+                {
+                    return task;
+                }
+            }
+            return null;
         }
     }
 }
