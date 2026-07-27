@@ -16,7 +16,8 @@ do
     Console.WriteLine("3. Delete Task");
     Console.WriteLine("4. Complete Task");
     Console.WriteLine("5. Edit Task");
-    Console.WriteLine("6. Exit");
+    Console.WriteLine("6. Search Task");
+    Console.WriteLine("7. Exit");
     Console.WriteLine($"\nEnter an option: ");
 
     readResult = Console.ReadLine();
@@ -153,6 +154,23 @@ do
             break;
 
         case "6":
+            Console.WriteLine("Search a keyword: ");
+            string? keyword = Console.ReadLine();
+            Console.WriteLine("");
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                taskService.SearchTasks(keyword);
+            }
+
+            else
+            {
+                Console.WriteLine("Enter a valid keyword.");
+            }
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            break;
+
+        case "7":
             break;
 
         default:
@@ -160,4 +178,4 @@ do
             Console.ReadKey();
             break;
     }
-} while (menuSelect != "6");
+} while (menuSelect != "7");

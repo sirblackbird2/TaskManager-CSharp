@@ -77,10 +77,34 @@ namespace TaskManager.Services
 
                 Console.WriteLine("Task edited successfully.");
             }
-            
+
             else
             {
                 Console.WriteLine("Task not found.");
+            }
+        }
+
+        public void SearchTasks(string keyword)
+        {
+            int counter = 0;
+            foreach (var task in tasks)
+            {
+                if (task.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) || task.Description.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                {
+                    counter++;
+
+                    Console.WriteLine($"Task {counter}");
+                    Console.WriteLine($"ID: {task.Id}");
+                    Console.WriteLine($"Title: {task.Title}");
+                    Console.WriteLine($"Description: {task.Description}");
+                    Console.WriteLine($"Completed: {(task.IsCompleted ? "Yes" : "No")}");
+                    Console.WriteLine($"----------------------------\n");
+                }
+            }
+
+            if (counter == 0)
+            {
+                Console.WriteLine($"Found 0 tasks containing the keyword \"{keyword}\"");
             }
         }
 
