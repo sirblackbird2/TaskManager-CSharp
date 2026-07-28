@@ -1,6 +1,7 @@
 ﻿using TaskManager.Models;
 using TaskManager.Services;
 TaskService taskService = new TaskService();
+taskService.LoadTasks();
 
 string? readResult;
 string menuSelect = "";
@@ -17,7 +18,7 @@ do
     Console.WriteLine("4. Complete Task");
     Console.WriteLine("5. Edit Task");
     Console.WriteLine("6. Search Task");
-    Console.WriteLine("7. Exit");
+    Console.WriteLine("7. Save & Exit");
     Console.WriteLine($"\nEnter an option: ");
 
     readResult = Console.ReadLine();
@@ -171,6 +172,8 @@ do
             break;
 
         case "7":
+            taskService.SaveTasks();
+            Console.WriteLine("Tasks saved successfully.");
             break;
 
         default:

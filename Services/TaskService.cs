@@ -1,8 +1,10 @@
+using System.Text.Json;
 using TaskManager.Models;
 namespace TaskManager.Services
 {
     public class TaskService
     {
+        private const string FileName = "tasks.json";
         private List<TaskItem> tasks = new List<TaskItem>();
         private int nextId = 1;
         public void AddTask(string title, string description)
@@ -105,6 +107,33 @@ namespace TaskManager.Services
             if (counter == 0)
             {
                 Console.WriteLine($"Found 0 tasks containing the keyword \"{keyword}\"");
+            }
+        }
+
+        public void SaveTasks()
+        {
+            string json = JsonSerializer.Serialize(tasks);
+            File.WriteAllText(FileName, json);
+        }
+
+        public void LoadTasks()
+        {
+            if (File.Exists(FileName))
+            {
+                string json = File.ReadAllText(FileName);
+                tasks = JsonSerializer.Deserialize<List<TaskItem>>(json) ?? new List<TaskItem>();
+
+                int largestId = 0;
+
+                foreach (var task in tasks)
+                {
+                    if (task.Id > largestId)
+                    {
+                        largestId = task.Id;
+                    }
+                }
+                
+                nextId = largestId + 1;
             }
         }
 
